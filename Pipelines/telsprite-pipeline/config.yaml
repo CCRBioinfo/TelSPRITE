@@ -1,0 +1,53 @@
+#email to which errors will be sent
+email: ""
+#Location of the config file for barcodeIdentification
+bID: "./example_config.txt"
+#Location of the samples json file produced with fastq2json.py script
+samples: "./samples.json"
+#output directory
+output_dir: ""
+#Currently "mm10" and "hg38" available
+assembly: "hg38"
+#Number of barcodes used
+num_tags: "5"
+#Repeat mask used for filtering DNA contacts
+mask:
+    mm10: "mm10_blacklist_rmsk.milliDivLessThan140.bed.gz"
+    hg19: "hg19.gatk35-and-rmsk140.bed.gz"
+    hg38: "hg38_blacklist_rmsk.milliDivLessThan140.bed.gz"
+    chm13: ""
+#Bowtie2 indexes location with prefix
+bowtie2_index:
+    mm10: ""
+    hg19: ""
+    hg38: ""
+    chm13: ""
+
+#Telomere refiltering stringency settings
+#If a certain parameter is not wanted (e.g. no minimum number of variant repeats) then set it to zero
+min_CTR: 2
+min_VTR: 0
+min_total: 4
+min_frac_CTR: 0
+
+#Setting for mating heatmap matrix
+#Plot a chromosome 'chr1' or plot genome wide 'genome'
+chromosome:
+    - genome
+# Options 'none', 'n_minus_one', 'two_over_n'
+downweighting:
+    - two_over_n
+#Number of ICE iterations 
+ice_iterations:
+    - 100
+#Contact matrix resolution in bp
+resolution:
+    - 1000000
+min_cluster_size:
+    - 2
+max_cluster_size:
+    - 1000
+#Max value for heatmap plotting
+max_value:
+    - 255
+

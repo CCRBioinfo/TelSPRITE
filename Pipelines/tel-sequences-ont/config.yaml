@@ -1,0 +1,42 @@
+# Assembly
+assembly: "hg38"
+
+# Path to reference genome fasta (should be same assembly that you listed above)
+ref_path: "/fdb/igenomes/Homo_sapiens/UCSC/hg38/Sequence/WholeGenomeFasta/genome.fa"
+
+# Sample name
+sample: "G292_iDAXX"
+
+# Path to sample .bam file
+input_bam: "../../long_read_bam/{sample}1_WGS.bam"
+
+# Window size for telomere filtering
+window_size: 300
+
+# Threshold for telomere content within window (expressed as ratio from 0 to 1)
+telo_frac_threshold: 0.9
+
+# Minimum mapq value for consideration
+mapq_threshold: 30
+
+# Chromosome end proximity threshold (in bp) for filtering out
+chr_end_prox_threshold: 100000
+
+# Mapq threshold for determining if a locus is poorly mapped
+locus_qual_threshold: 10
+
+# Fraction of reads which must be below the above threshold for a locus to count as poorly mapped
+locus_qual_frac: 0.4
+
+# Distance threshold (in bp) for two insertion loci to count as the same insertion site
+start_similarity_threshold: 100
+
+# Path to gene annotation file in RefSeq format
+gene_refseq_path: "hg38_gene_annotation_NCBI_RefSeq.txt"
+
+# Minimum number of supporting reads for a telomere sequence addition to appear in the final table
+min_read_count: 2
+
+# Output directory (leave blank to output in current directory)
+out_dir: ""
+

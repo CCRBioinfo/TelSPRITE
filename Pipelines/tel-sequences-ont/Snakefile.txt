@@ -1,0 +1,75 @@
+'''
+Author: David Wilson
+'''
+
+# Config file processing
+assembly = config['assembly']
+ref_path = config['ref_path']
+SAMPLE = config['sample']
+input_bam = config['input_bam']
+window_size = str(config['window_size'])
+telo_frac_threshold = str(config['telo_frac_threshold'])
+mapq_threshold = str(config['mapq_threshold'])
+chr_end_prox_threshold = str(config['chr_end_prox_threshold'])
+locus_qual_threshold = str(config['locus_qual_threshold'])
+locus_qual_frac = str(config['locus_qual_frac'])
+start_similarity_threshold = str(config['start_similarity_threshold'])
+gene_refseq_path = config['gene_refseq_path']
+min_read_count = config['min_read_count']
+out_dir = config['out_dir']
+
+name_details = '_telo_' + window_size + '_' + telo_frac_threshold + '_mapq_' + mapq_threshold
+
+# Script locations
+initial_filter = "scripts/initial_filter.py"
+tel_identification = "scripts/tel_identification.py"
+create_tel_table = "scripts/create_tel_table.py"
+add_intersected_genes = "scripts/add_intersected_genes.py"
+filter_by_read_count = "scripts/filter_by_read_count.py"
+
+rule all:
+    input:
+        out_dir + "output/" + SAMPLE + name_details + "_telomere_table_final.txt"
+
+rule initial_filter:
+    input:
+        input_bam
+    output:
+        out_dir + "output/{sample}" + name_details + ".bam"
+    shell:
+        "python {initial_filter} -i {input} -o {output} -w {window_size} -t {telo_frac_threshold} -m {mapq_threshold}"
+
+rule tel_identification:
+    input:
+        out_dir + "output/{sample}" + name_details + ".bam"
+    output:
+        out_dir + "output/{sample}" + name_details + "_read_table.txt"
+    shell:
+        "python {tel_identification} -i {input} -o {output} -w {window_size} -t {telo_frac_threshold}"
+
+rule create_tel_table:
+    input:
+        bam=input_bam,
+        table=out_dir + "output/{sample}" + name_details + "_read_table.txt"
+    output:
+        out_dir + "output/{sample}" + name_details + "_telomere_table.txt"
+    shell:
+        "python {create_tel_table} -i {input.table} -o {output} -b {input.bam} \
+        -a {assembly} -r {ref_path} -c {chr_end_prox_threshold} -t {locus_qual_threshold} \
+        -f {locus_qual_frac} -s {start_similarity_threshold}"
+
+rule add_intersected_genes:
+    input:
+        out_dir + "output/{sample}" + name_details + "_telomere_table.txt"
+    output:
+        out_dir + "output/{sample}" + name_details + "_telomere_table_with_genes.txt"
+    shell:
+        "python {add_intersected_genes} -i {input} -o {output} -g {gene_refseq_path}"
+
+rule filter_by_read_count:
+    input:
+        out_dir + "output/{sample}" + name_details + "_telomere_table_with_genes.txt"
+    output:
+        out_dir + "output/{sample}" + name_details + "_telomere_table_final.txt"
+    shell:
+        "python {filter_by_read_count} -i {input} -o {output} -m {min_read_count}"

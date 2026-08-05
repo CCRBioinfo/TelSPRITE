@@ -1,0 +1,7 @@
+assembly: "hg38"
+
+clusters_path: ""
+
+sample: ""
+
+resolution: 1000000

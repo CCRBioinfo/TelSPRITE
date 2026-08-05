@@ -1,0 +1,61 @@
+import sys
+
+configfile: 'config.yaml'
+
+try:
+   assembly = config["assembly"]
+   assert assembly in ["hg19", "hg38", "chm13"]
+except:
+   sys.exit("Invalid choice of assembly in config file")
+
+try:
+   clusters_path = config["clusters_path"]
+except:
+   sys.exit("Path to cluster files not found in config file")
+
+try:
+   sample = config["sample"]
+except:
+   sys.exit("Name of sample not found in config file")
+
+try:
+   res = int(config["resolution"])
+except:
+   sys.exit("Resolution not found in config file")
+
+if res == 1000000:
+   res_str = '1Mb'
+else:
+   res_str = str(int(res/1000)) + 'kb'
+res = str(res)
+s_r_str = sample + '_' + res_str
+out_dir = 'output/'
+
+matrix = out_dir + 'matrices/' + s_r_str + '_final.txt'
+telo_contacts = out_dir + "telo_contacts/" + s_r_str + "_telo_contacts.txt"
+telo_contacts_bedgraph = out_dir + "telo_contacts/" + s_r_str + "_telo_contacts.bedgraph"
+
+rule all:
+   input:
+      matrix,
+      telo_contacts
+
+rule get_contacts:
+   input:
+      clusters_path
+   output:
+      out_dir + "matrices/{sample}_" + res_str + "_iced.txt",
+      out_dir + "matrices/{sample}_" + res_str + "_biases.txt",
+      out_dir + "matrices/{sample}_" + res_str + "_raw_contacts.txt",
+      out_dir + "matrices/{sample}_" + res_str + "_final.txt"
+   shell:
+      "sh scripts/get_contacts.sh {input} " + out_dir + "matrices/" + s_r_str + " " + assembly + " genome " + res
+
+rule telo_contacts:
+   input:
+      out_dir + "matrices/{sample}_" + res_str + "_final.txt"
+   output:
+      out_dir + "telo_contacts/{sample}_" + res_str + "_telo_contacts.txt"
+   shell:
+      "python scripts/tel_from_matrix.py {input} " + assembly + " " + res +
+      " " + out_dir + "telo_contacts/{sample}_" + res_str

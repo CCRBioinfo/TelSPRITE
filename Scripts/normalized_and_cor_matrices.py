@@ -3,6 +3,8 @@ import sys
 import numpy as np
 from collections import OrderedDict
 
+__author__ = "David Wilson"
+
 parser = argparse.ArgumentParser()
 parser.add_argument(
     '-m', 

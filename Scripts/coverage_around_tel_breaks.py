@@ -6,6 +6,8 @@ from collections import OrderedDict
 import matplotlib.pyplot as plt
 import assembly_methods_mod as am
 
+__author__ = "David Wilson"
+
 parser = argparse.ArgumentParser()
 parser.add_argument(
     '-b', 

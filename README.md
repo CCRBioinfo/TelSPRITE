@@ -1,3 +1,18 @@
+# TelSPRITE: An approach for finding 3D telomere interactions with the genome
+
+Most chromosome conformation studies omit repeat sequences that cannot be uniquely mapped. Because telomeres
+become recombinogenic in cells that use Alternative Lengthening of Telomeres (ALT), we wished to understand
+whether telomeres preferentially associate with certain regions of the genome, predisposing those regions to 
+recombination with telomere sequence.  To achieve this end, we have made adaptations to the Guttman Lab SPRITE 
+method to capture telomere sequences that are normally masked and include them in genome conformation 
+analysis. 
+
+For extensive information on installing and running the original Guttman Lab pipeline, see:
+
+https://github.com/GuttmanLab/sprite-pipeline/wiki
+
+Our tools layer onto this pipeline to provide additional telomere-related functionality.
+
 This repository contains pipelines and scripts supporting analyses with TelSPRITE, including the following:
 
 -The directory called telsprite-pipeline contains files necessary for modifying the Guttman lab's SPRITE pipeline to create the TelSPRITE pipeline. Refer to the README file in that directory for specific instructions.

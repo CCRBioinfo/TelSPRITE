@@ -9,17 +9,20 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     '-m', 
     '--in_matrix', 
-    required=True
+    required=True,
+    help='Path to chr1 matrix from TelSPRITE; ensure that other chromosome matrices are at the same file path with "chr1" switched for the corresponding chromosome name'
     )
 parser.add_argument(
     '-a', 
     '--assembly', 
-    required=True
+    required=True,
+    help='Specify assembly (hg19, hg38, or t2t_chm13)'
     )
 parser.add_argument(
     '-o', 
     '--output',
-    required=True
+    required=True,
+    help='Path to store output'
     )
 args = parser.parse_args()
 

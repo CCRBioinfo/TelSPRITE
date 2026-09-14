@@ -30,3 +30,5 @@ This repository contains pipelines and scripts supporting analyses with TelSPRIT
 -The script normalized_and_cor_matrices.py takes SPRITE matrices for individual chromosomes as inputs and outputs Pearson correlation matrices of distance-normalized SPRITE contacts. These matrices are useful for visualizing A-B compartmentalization.
 
 -The script tel_cluster_plot.py generates matrices with positions of telomere contacts from TelSPRITE data at high resolution, which can be used to generate cluster plots.
+
+The pipelines telsprite-pipeline and tel-sequences-ont utilize built in conda environments with Snakemake. To run tel-sequences-ont and the other scripts, utilize the Scripts/telsprite_analysis_env.yaml configuration file to generate a conda environment with the needed software dependancies.

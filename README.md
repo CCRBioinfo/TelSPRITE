@@ -31,4 +31,4 @@ This repository contains pipelines and scripts supporting analyses with TelSPRIT
 
 -The script tel_cluster_plot.py generates matrices with positions of telomere contacts from TelSPRITE data at high resolution, which can be used to generate cluster plots.
 
-The pipelines telsprite-pipeline utilizes a built in conda environment with Snakemake. To run the other pipelines and scripts, utilize the Scripts/telsprite_analysis_env.yaml configuration file to generate a conda environment with the needed software dependancies.
+The pipeline telsprite-pipeline utilizes a built in conda environment with Snakemake. To run the other pipelines and scripts, utilize the Scripts/telsprite_analysis_env.yaml configuration file to generate a conda environment with the needed software dependancies.

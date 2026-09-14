@@ -1,3 +1,3 @@
 #!/bin/bash
 
-snakemake --cores --configfile config.yaml
+snakemake --cores 1 --configfile config.yaml

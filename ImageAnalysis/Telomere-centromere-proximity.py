@@ -13,7 +13,7 @@
 #                                        [--one [N]] [--two [N]] [--dapi [N]]
 #                                         [--debug [N]]
 # 
-# Segment TIF files
+# Quantify proximity of spots in two channels 
 #
 # options:
 #   -h, --help           show this help message and exit
@@ -54,7 +54,7 @@ import bigfish.stack as stack
 #
 # Parse command line arguments
 #
-parser = argparse.ArgumentParser(description="Segment TIF files")
+parser = argparse.ArgumentParser(description="Quantify proximity of spots in two channels")
 parser.add_argument(
     "-i", 
     "--indir", 

@@ -17,13 +17,13 @@
 #
 # options:
 #   -h, --help           show this help message and exit
-#   -i, --indir INDIR    Directory to process
+#   -i, --indir INDIR    Directory to process, containing TIF images of single nuclei
 #   -o, --outdir OUTDIR  Directory for output files
 #   --min [N]            minimum focus area in pixels (default 9)
 #   --max [N]            maximum focus area in pixels (default 10000)
-#   --tolerance [N]      Neighbor gap tolerance
-#   --one [N]            first channel for spots, typically Cen
-#   --two [N]            second channel for spots, typically Tel
+#   --tolerance [N]      Neighbor gap tolerance in pixels (default 5)
+#   --one [N]            first channel for spots, typically Cen (zero indexed)
+#   --two [N]            second channel for spots, typically Tel (zero indexed)
 #   --dapi [N]           channel for DAPI
 #   --debug [N]          Debug Setting, set to > 0 for debugging messages
 
@@ -60,7 +60,7 @@ parser.add_argument(
     "--indir", 
     required=True,
     type=pathlib.Path,
-    help="Directory to process"
+    help="Directory to process, containing TIF images of single nuclei"
 )
 parser.add_argument(
     "-o",
@@ -91,15 +91,17 @@ parser.add_argument(
     type=int,
     nargs="?",
     default="5",
-    help="Neighbor gap tolerance in pixels",
+    help="Neighbor gap tolerance in pixels (default 5)",
 )
 parser.add_argument(
     "--one", metavar="N", type=int, 
-    nargs="?", default="1", help="first channel for spots, typically Cen"
+    nargs="?", default="1", 
+    help="first channel for spots, typically Cen (zero indexed)"
 )
 parser.add_argument(
     "--two", metavar="N", type=int, 
-    nargs="?", default="0", help="second channel for spots, typically Tel"
+    nargs="?", default="0", 
+    help="second channel for spots, typically Tel (zero indexed)"
 )
 parser.add_argument(
     "--dapi", metavar="N", type=int, 
@@ -181,7 +183,7 @@ def prep_channel(channel):
     except Exception as err:
         print(f"Unexpected {err=}, {type(err)=}")
         raise
-    print("Prep complete")
+    #print("Prep complete")
     return(channel)
 
 #
